@@ -5,15 +5,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Cubit, and Testing Basics'),
     );
   }
 }
@@ -30,24 +30,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  Widget _circleButton(Function onPressed, String operator) {
-    return CircleAvatar(
-      backgroundColor: Colors.blueAccent,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            onPressed;
-          });
-        },
-        child: Text(
-          operator,
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
@@ -67,13 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Row(
-              children: [
-              
-              ],
-            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+        ),
+        onPressed: _incrementCounter,
       ),
     );
   }
