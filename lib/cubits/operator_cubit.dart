@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 part 'operator_state.dart';
 
 class OperatorCubit extends Cubit<OperatorState> {
-  OperatorCubit() : super(OperatorState(number: 1));
+  OperatorCubit() : super(OperatorState(number: 1.0));
 
   void add() {
     emit(
