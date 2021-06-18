@@ -1,4 +1,6 @@
+import 'package:cubit_testing_basics/cubits/operator_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -7,13 +9,16 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (context) => OperatorCubit(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Flutter Cubit, and Testing Basics'),
       ),
-      home: MyHomePage(title: 'Flutter Cubit, and Testing Basics'),
     );
   }
 }
@@ -28,14 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,18 +46,53 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            SizedBox(
+              height: 30,
+            ),
+            BlocBuilder<OperatorCubit, OperatorState>(
+              builder: (context, state) {
+                return Text(
+                  state.number.toString(),
+                  style: Theme.of(context).textTheme.headline3,
+                );
+              },
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () => BlocProvider.of<OperatorCubit>(context).add(),
+                  child: Text('+'),
+                ),
+                FloatingActionButton(
+                  onPressed: () => BlocProvider.of<OperatorCubit>(context).substract(),
+                  child: Text('-'),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () => BlocProvider.of<OperatorCubit>(context).multiply(),
+                  child: Text('*'),
+                ),
+                FloatingActionButton(
+                  onPressed: () => BlocProvider.of<OperatorCubit>(context).divide(),
+                  child: Text('/'),
+                ),
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: _incrementCounter,
       ),
     );
   }
