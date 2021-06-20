@@ -44,7 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'The Number is Currently:',
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
             SizedBox(
               height: 30,
